@@ -1,0 +1,8 @@
+### all list
+
+http://localhost:9090/api/banks
+
+
+### get one
+
+http://localhost:9090/api/banks/1111
