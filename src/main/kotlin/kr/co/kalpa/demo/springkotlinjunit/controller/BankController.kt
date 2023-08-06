@@ -4,10 +4,15 @@ import kr.co.kalpa.demo.springkotlinjunit.model.Bank
 import kr.co.kalpa.demo.springkotlinjunit.service.BankService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.NoSuchElementException
 import javax.swing.text.html.parser.Entity
@@ -24,4 +29,15 @@ class BankController (private val bankService: BankService) {
 
     @GetMapping("/{accountNumber}")
     fun getBank(@PathVariable accountNumber: String ) = bankService.getBank(accountNumber)
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addBank(@RequestBody bank: Bank): Bank = bankService.addBank(bank)
+
+    @PatchMapping
+    fun updateBank(@RequestBody bank: Bank): Bank = bankService.update(bank)
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteBank(@PathVariable accountNumber: String) = bankService.deleteBank(accountNumber)
 }
